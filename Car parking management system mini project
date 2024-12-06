@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <string.h>
+
+#define SIZE 5  // Maximum capacity of the parking lot
+
+typedef struct {
+    char vehicleNumber[20];
+} Vehicle;
+
+Vehicle parkingLot[SIZE];
+int top = -1;
+
+// Function to add a vehicle to the parking lot
+void addVehicle() {
+    if (top == SIZE - 1) {
+        printf("Parking lot is full!\n");
+        return;
+    }
+    top++;
+    printf("Enter vehicle number: ");
+    scanf("%s", parkingLot[top].vehicleNumber);
+    printf("Vehicle %s parked successfully.\n", parkingLot[top].vehicleNumber);
+}
+
+// Function to remove a vehicle from the parking lot
+void removeVehicle() {
+    if (top == -1) {
+        printf("Parking lot is empty!\n");
+        return;
+    }
+    printf("Vehicle %s has left the parking lot.\n", parkingLot[top].vehicleNumber);
+    top--;
+}
+
+// Function to display all parked vehicles
+void displayParkingLot() {
+    if (top == -1) {
+        printf("Parking lot is empty!\n");
+        return;
+    }
+    printf("Vehicles currently parked:\n");
+    for (int i = top; i >= 0; i--) {
+        printf("Slot %d: %s\n", i + 1, parkingLot[i].vehicleNumber);
+    }
+}
+
+// Main menu
+int main() {
+    int choice;
+    while (1) {
+        printf("\n--- Parking Lot Management ---\n");
+        printf("1. Park a Vehicle\n");
+        printf("2. Remove a Vehicle\n");
+        printf("3. Display Parking Lot\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addVehicle();
+                break;
+            case 2:
+                removeVehicle();
+                break;
+            case 3:
+                displayParkingLot();
+                break;
+            case 4:
+                printf("Exiting program. Thank you!\n");
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+    return 0;
+}
