@@ -1,0 +1,75 @@
+class Patient:
+    def __init__(self, name, age, diagnosis, treatment):
+        self.name = name
+        self.age = age
+        self.diagnosis = diagnosis
+        self.treatment = treatment
+
+    def __str__(self):
+        return f"Patient(Name: {self.name}, Age: {self.age}, Diagnosis: {self.diagnosis}, Treatment: {self.treatment})"
+
+class PatientStack:
+    def __init__(self):
+        self.stack = []
+
+    # Push a new patient record onto the stack
+    def push(self, patient):
+        self.stack.append(patient)
+        print(f"Patient {patient.name} added to the stack.")
+
+    # Pop the most recent patient record from the stack
+    def pop(self):
+        if self.is_empty():
+            print("No patient records to remove.")
+        else:
+            removed_patient = self.stack.pop()
+            print(f"Patient {removed_patient.name} removed from the stack.")
+            return removed_patient
+
+    # View the most recent patient record (peek)
+    def peek(self):
+        if self.is_empty():
+            print("No patient records available.")
+        else:
+            return self.stack[-1]
+
+    # Check if the stack is empty
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    # Display all patient records in the stack
+    def display_all_patients(self):
+        if self.is_empty():
+            print("No patients in the stack.")
+        else:
+            print("\n--- List of Patients in Stack ---")
+            for patient in reversed(self.stack):  # Display from most recent to oldest
+                print(patient)
+
+# Example usage
+if __name__ == "__main__":
+    # Creating a patient stack
+    healthcare_stack = PatientStack()
+
+    # Adding some patient records
+    patient1 = Patient("John Doe", 30, "Flu", "Rest and Hydration")
+    healthcare_stack.push(patient1)
+
+    patient2 = Patient("Jane Smith", 45, "Broken Leg", "Cast and Painkillers")
+    healthcare_stack.push(patient2)
+
+    patient3 = Patient("Alice Johnson", 60, "High Blood Pressure", "Medication")
+    healthcare_stack.push(patient3)
+
+    # Display all patients
+    healthcare_stack.display_all_patients()
+
+    # Peek at the most recent patient
+    print("\nMost recent patient:")
+    print(healthcare_stack.peek())
+
+    # Pop a patient (i.e., complete treatment or discharge)
+    healthcare_stack.pop()
+
+    # Display all patients again after popping
+    healthcare_stack.display_all_patie
