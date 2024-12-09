@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define SIZE 5 // Maximum number of parking slots
+
+typedef struct {
+    char carNumber[15];
+} Car;
+
+Car stack[SIZE];
+int top = -1;
+
+// Function to check if the parking lot is full
+int isFull() {
+    return top == SIZE - 1;
+}
+
+// Function to check if the parking lot is empty
+int isEmpty() {
+    return top == -1;
+}
+
+// Function to add a car to the parking lot
+void push(char carNumber[]) {
+    if (isFull()) {
+        printf("Parking Lot is full. No more cars can be parked.\n");
+        return;
+    }
+    top++;
+    strcpy(stack[top].carNumber, carNumber);
+    printf("Car %s has entered the parking lot.\n", carNumber);
+}
+
+// Function to remove a car from the parking lot
+void pop() {
+    if (isEmpty()) {
+        printf("Parking Lot is empty. No cars to remove.\n");
+        return;
+    }
+    printf("Car %s has exited the parking lot.\n", stack[top].carNumber);
+    top--;
+}
+
+// Function to display the cars in the parking lot
+void display() {
+    if (isEmpty()) {
+        printf("Parking Lot is empty.\n");
+        return;
+    }
+
+    printf("Cars currently in the parking lot:\n");
+    for (int i = top; i >= 0; i--) {
+        printf("Slot %d: Car %s\n", i + 1, stack[i].carNumber);
+    }
+}
+
+int main() {
+    int choice;
+    char carNumber[15];
+
+    do {
+        printf("\nParking Lot Management\n");
+        printf("1. Add Car\n");
+        printf("2. Remove Car\n");
+        printf("3. Display Cars\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter car number: ");
+                scanf("%s", carNumber);
+                push(carNumber);
+                break;
+
+            case 2:
+                pop();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                printf("Exiting...\n");
+                break;
+
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    } while (choice != 4);
+
+    return 0;
+}
